@@ -40,6 +40,44 @@ function selectMain($mysql){
     return $a;
 }
 
+
+function getAllTags($mysql){
+    $result = $mysql->query(" SELECT DISTINCT tag FROM tag");
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()){
+        $a[] = $row['tag']; 
+        }
+    } else {
+        $a = 'bad select';
+    }
+    return $a;
+}
+
+function getPostFromTag($mysql){
+    $result = $mysql->query("SELECT post FROM tag WHERE tag='".$_GET['tag']."' ");
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()){
+        $a[] = $row['post']; 
+        }
+    } else {
+        $a = 'bad select from tag getPostFromTag';
+        return $a;
+    } 
+    $join = join("," , $a); // join делает из массива строку
+    $result = $mysql->query(" SELECT * FROM info WHERE id in ($join) "); 
+    $a = array();
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()){
+        $a[] = $row; 
+        }
+    } else {
+        $a = 'bad select from info getPostFromTag';
+    }
+    return $a;
+}
+
+
+
 function paginationCount($mysql){
     $sql = "SELECT * FROM info"; 
     $result = $mysql->query($sql);
