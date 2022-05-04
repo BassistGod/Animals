@@ -40,9 +40,20 @@ function selectMain($mysql){
     return $a;
 }
 
+function selectArticle($mysql){
+    $result = $mysql->query(" SELECT * FROM info WHERE id=".$_GET['id']);
+    if ($result->num_rows > 0) {
+        $a = $result->fetch_assoc();        
+        } else {
+        $a = 'bad select';
+    }
+    return $a;
+}
 
+
+//выбираем уникальные варианты тегов
 function getAllTags($mysql){
-    $result = $mysql->query(" SELECT DISTINCT tag FROM tag");
+    $result = $mysql->query(" SELECT DISTINCT tag FROM tag"); // DISTINCT выберает уникальные варианты
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()){
         $a[] = $row['tag']; 
@@ -54,7 +65,7 @@ function getAllTags($mysql){
 }
 
 function getPostFromTag($mysql){
-    $result = $mysql->query("SELECT post FROM tag WHERE tag='".$_GET['tag']."' ");
+    $result = $mysql->query("SELECT post FROM tag WHERE tag='".$_GET['tag']."'"); // кавычки для строки
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()){
         $a[] = $row['post']; 
@@ -72,6 +83,58 @@ function getPostFromTag($mysql){
         }
     } else {
         $a = 'bad select from info getPostFromTag';
+    }
+    return $a;
+}
+
+// выбираем записи животных, где категория =id
+function getPostFromCategory($mysql){
+    $result = $mysql->query("SELECT * FROM info WHERE category=".$_GET['id']);
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()){
+            $a[] = $row; 
+        }
+    } else {
+        $a = 'bad select from info';
+    }
+    return $a;
+}
+
+// выбираем запись категории по id
+function getCatInfo($mysql){
+    $result = $mysql->query("SELECT * FROM category WHERE id=".$_GET['id']);
+    if ($result->num_rows > 0) {
+        $a = $result->fetch_assoc();
+    } else {
+        $a = 'bad select from category';
+    }
+    return $a;
+}
+
+// выбираем все записи таблицы категории
+function getAllCatInfo($mysql){
+    $result = $mysql->query("SELECT * FROM category");
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()){
+            $a[] = $row; 
+        }
+    } else {
+        $a = 'bad select from category';
+    }
+    return $a;
+}
+
+
+
+// выбирем теги, которые указывают на определенную статью
+function getArticleTags($mysql){
+    $result = $mysql->query(" SELECT  id, tag FROM tag WHERE post=".$_GET['id']); 
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()){
+        $a[] = $row; 
+        }
+    } else {
+        $a = 'bad select';
     }
     return $a;
 }

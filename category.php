@@ -3,23 +3,13 @@ require_once 'core/config.php';
 require_once 'core/function.php';
 
 $mysql = connect();
-$data = selectMain($mysql);
-$countPage = paginationCount($mysql);
-$tag = getAllTags($mysql);
-$AllCat = getAllCatInfo($mysql);
+$data = getPostFromCategory($mysql);
+$cat = getcatInfo($mysql);
 close ($mysql);
 
-
-$out = '';
-for ($i=0; $i < count($AllCat); $i++){
-    $out .= "<p><a href='/New_lessons/14_animal/category.php?id={$AllCat[$i]['id']}'>{$AllCat[$i]['description']}</a></p>";
-}
-$out .= '<hr>';
-echo $out;
-
+echo "<h1>{$cat['category']}</h1/>";
 
 // выводим таблицу записей
-$out = '';
 for ($i=0; $i < count($data); $i++){
     // проверяем наличие записи об изображении в базе
     if ($data[$i]['image'] != ''){
@@ -33,17 +23,16 @@ for ($i=0; $i < count($data); $i++){
     $out .= "<p><a href='/New_lessons/14_animal/article.php?id={$data[$i]['id']}'>Read more...</a></p>";
     $out .= '<hr>';
 }
-echo $out;
 
-// вывод ссылок на страницы
-for ($i=0; $i < $countPage; $i++){
-    $j = $i + 1;
-    echo "<a href='/New_lessons/14_animal/index.php?page={$i}' style ='padding: 5px;'>{$j}</a>";
-}
-
-echo '<hr>';
 // вывод ссылок на теги
 for ($i=0; $i < count($tag); $i++){
     echo "<a href='/New_lessons/14_animal/tag.php?tag={$tag[$i]}' style ='padding: 5px;'>{$tag[$i]}</a>";
 }
+echo '<hr>';
+
+echo $out;
+
+
+
+
 
