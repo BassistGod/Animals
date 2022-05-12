@@ -87,6 +87,24 @@ function getPostFromTag($mysql){
     return $a;
 }
 
+// сумма записей в каждой категории
+function getAmountCatInfo($mysql){
+    $result = $mysql->query("SELECT id FROM category");
+    if ($result->num_rows > 0){
+        while ($row = $result->fetch_assoc()){
+            $result2 = $mysql->query("SELECT count(*) as total FROM info WHERE category=".$row['id']);
+            if ($result2->num_rows > 0) {
+                while ($data = $result2->fetch_assoc()){
+                    $a[] = $data['total'];
+                }     
+            } else {
+                $a = 'bad select from getAmountCatInfo';
+            }
+        }   
+    }
+    return $a;
+}
+
 // выбираем записи животных, где категория =id
 function getPostFromCategory($mysql){
     $result = $mysql->query("SELECT * FROM info WHERE category=".$_GET['id']);
