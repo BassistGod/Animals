@@ -1,8 +1,5 @@
 <?php
-require_once 'core/config.php';
-require_once 'core/function.php';
-
-$mysql = connect();
+require_once 'template/header.php';
 $data = getPostFromTag($mysql);
 $tag = getAllTags($mysql);
 
@@ -29,6 +26,9 @@ for ($i=0; $i < count($data); $i++){
     $out .= '<hr>';
 }
 echo $out;
+
+require_once 'template/footer.php';
+?>
 
 
 
