@@ -88,10 +88,10 @@ close ($mysql);
         <!-- вывод ссылок на теги -->
         <div class="col-lg-12 text-center"> 
             <?php
-            echo '<hr>';
-            for ($i=0; $i < count($tag); $i++){
-                echo "<span><a href='/New_lessons/14_animal/tag.php?tag={$tag[$i]}' class='badge badge-primary p-2 m-1' >{$tag[$i]}</a></span>";
-            }
+                echo '<hr>';
+                for ($i=0; $i < count($tag); $i++){
+                    echo "<span><a href='/New_lessons/14_animal/tag.php?tag={$tag[$i]}' class='badge badge-primary p-2 m-1' >{$tag[$i]}</a></span>";
+                }
             ?>
         </div>
     </div> 

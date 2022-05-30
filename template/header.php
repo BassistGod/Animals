@@ -6,6 +6,7 @@ $AllCat = getAllCatInfo($mysql);
 $AmountCatInfo = getAmountCatInfo($mysql);
 ?>
 
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -15,11 +16,14 @@ $AmountCatInfo = getAmountCatInfo($mysql);
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-
+    <link rel='stylesheet' href='css/style.css' />
+    
     <title>Hello, world!</title>
 </head>
 <body>
-
+<!-- <div class="wrap"> -->
+<div class="content">
+<div class="wrapper">
 
     <!-- Navtabs -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="background-color: #666666;">

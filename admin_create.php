@@ -1,45 +1,50 @@
 <?php
 require_once 'template/header.php';
 
-if (isset($_COOKIE['bd_create_success']) AND $_COOKIE['bd_create_success'] !=''){
-    if ($_COOKIE['bd_create_success'] == 1){
-        setcookie("bd_create_success", '1', time()-10);
-        echo "New record created successfully" . '<br>';         
-    } 
-}
-
 // создаем список для выбора тегов 
 $tag = getAllTags($mysql);
 close ($mysql);
 
 // добавляем записи в базу данных
-// if (isset($_POST['title']) AND $_POST['title'] !=''){
-//     $title = $_POST['title'];
-//     $descr_min = $_POST['descr_min'];
-//     $description = $_POST['description'];
-//     $newTags = $_POST['tag'];
+if (isset($_POST['title']) AND $_POST['title'] !=''){
+    $title = $_POST['title'];
+    $descr_min = $_POST['descr_min'];
+    $description = $_POST['description'];
+    $newTags = $_POST['tag'];
+    $category =  $_POST['category'];
 
-//     move_uploaded_file($_FILES['image']['tmp_name'], 'images/'.$_FILES['image']['name']);
+    if (isset($category) AND $category !=''){
+        if ($category != 'Без категории'){
+            for ($i=0; $i < count($AllCat); $i++){
+                if ($category == $AllCat[$i]['category']){
+                $catId = $AllCat[$i]['id'];
+                }
+            }
+        } 
+    }
 
-//     $mysql = connect();
-//     $sql = "INSERT INTO info (title, descr_min, description, image) 
-//     VALUES ('$title', '$descr_min', '$description', '".$_FILES['image']['name']."')";
+    move_uploaded_file($_FILES['image']['tmp_name'], 'images/'.$_FILES['image']['name']);
+
+    $mysql = connect();
+    $sql = "INSERT INTO info (title, category, descr_min, description, image) 
+    VALUES ('$title', '$catId', '$descr_min', '$description', '".$_FILES['image']['name']."')";
    
-//     if ($mysql->query($sql) === TRUE) {
-//         if (isset($newTags) AND $newTags !=''){
-//             $lastId = $mysql->insert_id;
-//             for ($i=0; $i < count($newTags); $i++){
-//                 $sql = "INSERT INTO tag (tag, post) VALUES ('$newTags[$i]', '$lastId')";
-//                 $mysql->query($sql);
-//             }
-//         }
-//         header('Location: /New_lessons/14_animal/admin.php');
-//         setcookie("bd_create_success", '1', time()+10);
-//     } else {
-//         echo "Error: " . $sql . "<br>" . $mysql->error . '<br>';
-//     }
-//     close ($mysql);
-// } 
+    if ($mysql->query($sql) === TRUE) {
+        if (isset($newTags) AND $newTags !=''){
+            $lastId = $mysql->insert_id;
+            for ($i=0; $i < count($newTags); $i++){
+                $sql = "INSERT INTO tag (tag, post) VALUES ('$newTags[$i]', '$lastId')";
+                $mysql->query($sql);
+            }
+        }
+        header('Location: /New_lessons/14_animal/admin.php');
+        setcookie("bd_create_success", '1', time()+10);
+    } else {
+        echo "Error: " . $sql . "<br>" . $mysql->error . '<br>';
+    }
+    close ($mysql);
+} 
+
 ?>
 <div class="container">
     <div class="row">
@@ -58,21 +63,37 @@ close ($mysql);
                 </div> 
                 <div class="form-group">
                     <label for="description">Description:</label>
-                    <textarea name="description" class="form-control" id="description" rows="3"></textarea>
-                    <small id="description" class="form-text text-muted">Введите полное описание</small>
+                    <textarea name="description" class="form-control" id="description" placeholder="Введите полное описание" rows="3"></textarea>
+                    <!-- <small id="description" class="form-text text-muted">Введите полное описание</small> -->
                 </div> 
+                <!-- Выбираем категорию -->
                 <div class="form-group">
-                    <label for="tag">Tag input:</label>
-                    <select  name="tag[]" multiple class="form-control" id="tag">
+                    <label for="category">Category select:</label>
+                    <select name ="category" class="form-control" id="category">
                         <?php
-                        // $out = '<p>Tags: <select name="tag[]" multiple="multiple">';
-                        for ($i=0; $i < count($tag); $i++){
-                            $out .= "<option>{$tag[$i]}</option>";
+                        $out = '';
+                        $out .= "<option>Без категории</option>";
+                        for ($i=0; $i < count($AllCat); $i++){
+                            $out .= "<option>{$AllCat[$i]['category']}</option>";
                         }
-                        // $out .= "</select></p>";
                         echo $out;
                         ?>
                     </select>
+                    <small id="tag" class="form-text text-muted">Выберите подходящую категорию</small> 
+                </div>
+                <!-- Выбираем теги -->
+                <div class="form-group">
+                    <label for="tag">Tag input:</label>
+                    <select name="tag[]" multiple class="form-control" id="tag">
+                        <?php
+                        $out = '';
+                        for ($i=0; $i < count($tag); $i++){
+                            $out .= "<option>{$tag[$i]}</option>";
+                        }
+                        echo $out;
+                        ?>
+                    </select>
+                    <small id="tag" class="form-text text-muted">Выберите подходящие теги</small> 
                 </div> 
                 <div class="form-group">
                     <label for="image">Photo:</label>

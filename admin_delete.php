@@ -8,7 +8,7 @@ if (isset($_GET['Delete_id']) AND $_GET['Delete_id'] !=''){
     $sql = "DELETE FROM info WHERE id = '".$_GET['Delete_id']."'";
     if ($mysql->query($sql) === TRUE) {
         header('Location: /New_lessons/14_animal/admin.php');
-        setcookie("delete_record", '1', time()+10);
+        setcookie("delete_record", '1', time()+10); 
     } else {
         echo "Error: " . $sql . "<br>" . $mysql->error . '<br>';
     }

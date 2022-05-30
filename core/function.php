@@ -144,9 +144,22 @@ function getAllCatInfo($mysql){
 
 
 
-// выбирем теги, которые указывают на определенную статью
+// выбирем теги, которые указывают на определенную статью методом GET
 function getArticleTags($mysql){
     $result = $mysql->query(" SELECT  id, tag FROM tag WHERE post=".$_GET['id']); 
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()){
+        $a[] = $row; 
+        }
+    } else {
+        $a = 'bad select';
+    }
+    return $a;
+}
+
+// выбирем все записи таблицы tag
+function getAllArticleTags($mysql){
+    $result = $mysql->query(" SELECT  * FROM tag "); 
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()){
         $a[] = $row; 
