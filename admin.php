@@ -42,14 +42,6 @@ if (isset($_COOKIE['bd_edit_cancel']) AND $_COOKIE['bd_edit_cancel'] !=''){
             <div class="row mb-2">
                 <div class="col-lg-4">
                     <?php echo $status; ?>
-                    <!-- <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                            <th scope="col">Status: </th>
-                            <th scope="col">     </th>
-                            </tr>
-                        </thead>
-                    </table>     -->
                 </div>
                 <div class="col-lg-8 text-right">
                     <a href="/New_lessons/14_animal/admin_create.php"><button class="btn btn-success">Add new record</button></a>
@@ -77,7 +69,6 @@ if (isset($_COOKIE['bd_edit_cancel']) AND $_COOKIE['bd_edit_cancel'] !=''){
                             }
                         }
                     } 
-
                     // получаем категорию для каждой записи
                     $catId = $data[$i]['category'];
                     $catName = 'Без категории';
@@ -88,13 +79,10 @@ if (isset($_COOKIE['bd_edit_cancel']) AND $_COOKIE['bd_edit_cancel'] !=''){
                             }
                         }
                     }  
-
                     // Кнопка редактирования    
                     $edit = "<div><a href='/New_lessons/14_animal/admin_edit.php?id={$data[$i]['id']}'><button class='btn btn-info'>Edit</button></a></div>";    
-
                     // Кнопка удаления  
                     $delete = "<div><a href='/New_lessons/14_animal/admin_delete.php?Delete_id={$data[$i]['id']}'><button class='btn btn-danger'>Delete</button></a></div>";
-
                     // добавляем все записи для вывода таблицы
                     $number = $i + 1;
                     $out .= "<tr><th scope='row'>{$number}</th><td>{$data[$i]['id']}</td><td>{$catName}</td><td>{$data[$i]['title']}</td><td>{$data[$i]['descr_min']}</td><td>{$data[$i]['description']}</td><td>$tagsName</td><td>{$image}</td><td>{$edit}</td><td>{$delete}</td></tr>";
@@ -105,7 +93,6 @@ if (isset($_COOKIE['bd_edit_cancel']) AND $_COOKIE['bd_edit_cancel'] !=''){
         </div>
     </div>
 </div>            
-
 
 <?php
 require_once 'template/footer.php';

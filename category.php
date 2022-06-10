@@ -11,15 +11,15 @@ close ($mysql);
         <div class="col-lg-9">
             <div class="row">
                 <div class="col-lg-12">
-                <?php
-                // выводим заголовок
-                echo "<h1 class='text-center'>{$cat['category']}</h1>";
-                ?>
+                    <?php
+                    // выводим заголовок
+                    echo "<h1 class='text-center'>{$cat['category']}</h1>";
+                    ?>
                 </div>
                 <div class="col-lg-12">
-                <?php
-                echo "<div class='text-center mb-4 mt-2'>{$cat['description']}</div>";
-                ?>
+                    <?php
+                    echo "<div class='text-center mb-4 mt-2'>{$cat['description']}</div>";
+                    ?>
                 </div>
             </div>
             <div class="row">
@@ -27,7 +27,7 @@ close ($mysql);
                 // выводим таблицу записей в виде карточек 
                 $out = '';
                 for ($i=0; $i < count($data); $i++){
-                    $out .= '<div class="col-lg-4 col-md-6">';
+                    $out .= '<div class="col-lg-4 col-md-6 mb-4">';
                     $out .= '<div class="card">';
                     $out .= "<img src='/New_lessons/14_animal/images/{$data[$i]['image']}' class='card-img-top'>";
                     $out .= '<div class="card-body">';
@@ -50,15 +50,6 @@ close ($mysql);
 </div>
 
 <?php
-
-// вывод ссылок на теги
-// $out = '';
-// for ($i=0; $i < count($tag); $i++){
-//     echo "<span><a href='/New_lessons/14_animal/tag.php?tag={$tag[$i]}' class='badge badge-primary p-2 m-1'>{$tag[$i]}</a></span>";
-// }
-// echo '<hr>';
-// echo $out;
-
 require_once 'template/footer_down.php';
 ?>
 

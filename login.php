@@ -1,7 +1,6 @@
 <?php
 require_once 'template/header_admin.php';
 
-
 if ($_POST['login'] !='' AND $_POST['password'] ==''){
     echo 'You need to enter the password';
     echo '<br>';
@@ -34,14 +33,12 @@ if ($_POST['login'] !='' AND $_POST['password'] !=''){
     }   
 }
 
-
 // проверка успешной записи в базу
 if (isset($_COOKIE['reg_success']) AND $_COOKIE['reg_success'] !=''){
     if ($_COOKIE['reg_success'] == 1){
         $status = '<p class="text-success text-center"><em>New account created successfully</em></p>';        
     } 
 } 
-
 
 close ($mysql);
 ?>
@@ -88,7 +85,6 @@ close ($mysql);
         </div>
     </div>
 </div>
-
 
 <?php
 require_once 'template/footer_down.php';

@@ -16,27 +16,23 @@ function select($mysql){
         while ($row = $result->fetch_assoc()){
         $a[] = $row; 
         }
-    } else {
-        $a = 'bad select';
-    }
+    } 
     return $a;
 }
 
 function selectMain($mysql){
     $offset = 0;
     if (isset($_GET['page']) AND trim($_GET['page']) != ''){
-        $offset = trim($_GET['page']); 
+        $offset = trim($_GET['page']) * ARTNUM; 
     }
-    $result = $mysql->query(" SELECT * FROM info ORDER BY id DESC LIMIT 3 OFFSET ".$offset*3); // выборка в обратном порядке
-    
+    $const = ARTNUM;
+    $result = $mysql->query(" SELECT * FROM info ORDER BY id DESC LIMIT $const OFFSET ".$offset); // выборка в обратном порядке
     $a = array();
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()){
         $a[] = $row; 
         }
-    } else {
-        $a = 'bad select';
-    }
+    } 
     return $a;
 }
 
@@ -44,12 +40,9 @@ function selectArticle($mysql){
     $result = $mysql->query(" SELECT * FROM info WHERE id=".$_GET['id']);
     if ($result->num_rows > 0) {
         $a = $result->fetch_assoc();        
-        } else {
-        $a = 'bad select';
-    }
+    } 
     return $a;
 }
-
 
 //выбираем уникальные варианты тегов
 function getAllTags($mysql){
@@ -58,9 +51,7 @@ function getAllTags($mysql){
         while ($row = $result->fetch_assoc()){
         $a[] = $row['tag']; 
         }
-    } else {
-        $a = 'bad select';
-    }
+    } 
     return $a;
 }
 
@@ -70,9 +61,6 @@ function getPostFromTag($mysql){
         while ($row = $result->fetch_assoc()){
         $a[] = $row['post']; 
         }
-    } else {
-        $a = 'bad select from tag getPostFromTag';
-        return $a;
     } 
     $join = join("," , $a); // join делает из массива строку
     $result = $mysql->query(" SELECT * FROM info WHERE id in ($join) "); 
@@ -81,9 +69,7 @@ function getPostFromTag($mysql){
         while ($row = $result->fetch_assoc()){
         $a[] = $row; 
         }
-    } else {
-        $a = 'bad select from info getPostFromTag';
-    }
+    } 
     return $a;
 }
 
@@ -97,9 +83,7 @@ function getAmountCatInfo($mysql){
                 while ($data = $result2->fetch_assoc()){
                     $a[] = $data['total'];
                 }     
-            } else {
-                $a = 'bad select from getAmountCatInfo';
-            }
+            } 
         }   
     }
     return $a;
@@ -112,9 +96,7 @@ function getPostFromCategory($mysql){
         while ($row = $result->fetch_assoc()){
             $a[] = $row; 
         }
-    } else {
-        $a = 'bad select from info';
-    }
+    } 
     return $a;
 }
 
@@ -123,9 +105,7 @@ function getCatInfo($mysql){
     $result = $mysql->query("SELECT * FROM category WHERE id=".$_GET['id']);
     if ($result->num_rows > 0) {
         $a = $result->fetch_assoc();
-    } else {
-        $a = 'bad select from category';
-    }
+    } 
     return $a;
 }
 
@@ -136,13 +116,9 @@ function getAllCatInfo($mysql){
         while ($row = $result->fetch_assoc()){
             $a[] = $row; 
         }
-    } else {
-        $a = 'bad select from category';
     }
     return $a;
 }
-
-
 
 // выбирем теги, которые указывают на определенную статью методом GET
 function getArticleTags($mysql){
@@ -151,9 +127,7 @@ function getArticleTags($mysql){
         while ($row = $result->fetch_assoc()){
         $a[] = $row; 
         }
-    } else {
-        $a = 'bad select';
-    }
+    } 
     return $a;
 }
 
@@ -164,36 +138,15 @@ function getAllArticleTags($mysql){
         while ($row = $result->fetch_assoc()){
         $a[] = $row; 
         }
-    } else {
-        $a = 'bad select';
-    }
+    } 
     return $a;
 }
-
-
 
 function paginationCount($mysql){
     $sql = "SELECT * FROM info"; 
     $result = $mysql->query($sql);
     $result = $result->num_rows;
-    return ceil($result/3); // округляет всегда в ольшее целое число
-}
-
-
-function output($result){
-    ?>
-    <table border="1">
-        <?php while ($row = $result->fetch_assoc()){ ?>
-        <tr>
-        <?php
-            foreach ($row as $value){
-                ?><th width="200" height="50"> <?php 
-                echo $value; ?></th>  
-        <?php } ?>
-        </tr>
-        <?php } ?>
-    </table>
-    <?php
+    return ceil($result/ARTNUM); // округляет всегда в большее целое число
 }
 
 function generateHash ($length) {

@@ -34,13 +34,11 @@ close ($mysql);
 
         <div class="col-lg-12 text-center">
             <?php
-            // вывод ссылок на теги
-            if (isset($tag) AND $tag !='bad select'){  
+            // вывод ссылок на теги  
                 echo '<hr>';
                 for ($i=0; $i < count($tag); $i++){
                     echo "<span><a href='/New_lessons/14_animal/tag.php?tag={$tag[$i]['tag']}' class='badge badge-primary p-2 m-1'>{$tag[$i]['tag']}</a></span>";
                 }
-            }
             ?>
         </div>
     </div>

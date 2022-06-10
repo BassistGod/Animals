@@ -22,7 +22,7 @@ close ($mysql);
                 // выводим таблицу записей в виде карточек 
                 $out = '';
                 for ($i=0; $i < count($data); $i++){
-                    $out .= '<div class="col-lg-4 col-md-6">';
+                    $out .= '<div class="col-lg-4 col-md-6 mb-4">';
                     $out .= '<div class="card">';
                     $out .= "<img src='/New_lessons/14_animal/images/{$data[$i]['image']}' class='card-img-top'>";
                     $out .= '<div class="card-body">';
@@ -37,17 +37,13 @@ close ($mysql);
                 ?>
             </div>
         </div>
-        
-        <div class="col-lg-3">  
         <!-- выводим категории -->
+        <div class="col-lg-3">  
             <?php require_once 'template/nav.php'; ?>   
-        </div>
-        
-    </div>
-        
-    
+        </div>    
+    </div> 
+    <!-- Pagination - вывод ссылок на страницы     -->   
     <div class="row">
-        <!-- Pagination - вывод ссылок на страницы     -->
         <div class="col-lg-12 text-center">
             <nav class="mt-4">
                 <nav aria-label="...">
