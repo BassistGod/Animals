@@ -59,7 +59,7 @@ close ($mysql);
 // echo '<hr>';
 // echo $out;
 
-require_once 'template/footer.php';
+require_once 'template/footer_down.php';
 ?>
 
 

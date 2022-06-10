@@ -1,6 +1,7 @@
 <?php
 require_once 'core/config.php';
 require_once 'core/function.php';
+require_once 'core/access_check.php';
 
 // проверка передачи значения методом GET, если да, создаем подключение, запрос, если запрос выполняется, переходим на главную и создаем куки с информацией об успехе
 if (isset($_GET['Delete_id']) AND $_GET['Delete_id'] !=''){

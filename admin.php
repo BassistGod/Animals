@@ -1,44 +1,61 @@
 <?php
-require_once 'template/header.php';
+require_once 'template/header_admin.php';
+
 $data = select($mysql);
 $AllTags = getAllArticleTags($mysql);
-close ($mysql);
+require_once 'core/access_check.php';
+
+
+$status = '';
 // проверка успешной записи в базу
 if (isset($_COOKIE['bd_create_success']) AND $_COOKIE['bd_create_success'] !=''){
     if ($_COOKIE['bd_create_success'] == 1){
-        echo "New record created successfully" . '<br>';         
+        $status = '<div class="alert alert-success" role="alert">New record created successfully</div>';        
     } 
 } 
 // проверка успешного удаления записи из базы
 if (isset($_COOKIE['delete_record']) AND $_COOKIE['delete_record'] !=''){
-    if ($_COOKIE['delete_record'] == 1){
-        echo "Record is deleted" . '<br>';         
+    if ($_COOKIE['delete_record'] == 1){ 
+        $status = '<div class="alert alert-danger" role="alert">The record is deleted</div>';         
     } 
 } 
 // проверка успешного редактирования записи
 if (isset($_COOKIE['bd_edit_success']) AND $_COOKIE['bd_edit_success'] !=''){
     if ($_COOKIE['bd_edit_success'] == 1){
-        echo "The record edited successfully" . '<br>';         
+        $status = '<div class="alert alert-success" role="alert">The record edited successfully</div>';         
     } 
 }
 // проверка отмены редактирования записи
 if (isset($_COOKIE['bd_edit_cancel']) AND $_COOKIE['bd_edit_cancel'] !=''){
     if ($_COOKIE['bd_edit_cancel'] == 1){
-        echo "The record edit canceled" . '<br>';         
+        $status = '<div class="alert alert-primary" role="alert">The record edit is canceled</div>';   
     } 
 }
-
 ?>
 
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
+            <!-- Заголовок -->
+            <h2 class="mt-2 text-center">Admin-panel</h2>
+            <!-- Панель статуса и кнопка создать запись -->
+            <div class="row mb-2">
+                <div class="col-lg-4">
+                    <?php echo $status; ?>
+                    <!-- <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                            <th scope="col">Status: </th>
+                            <th scope="col">     </th>
+                            </tr>
+                        </thead>
+                    </table>     -->
+                </div>
+                <div class="col-lg-8 text-right">
+                    <a href="/New_lessons/14_animal/admin_create.php"><button class="btn btn-success">Add new record</button></a>
+                </div>
+            </div>
             <?php
-                echo '<h2>Admin-panel</h2>';
-                // Кнопка создать запись
-                echo '<div class="mt-2 mb-2 text-right">';
-                echo '<a href="/New_lessons/14_animal/admin_create.php"><button class="btn btn-success">Add new record</button></a></div>';
-                // border="2"
                 // вывод данных из массива в таблице
                 $out = '<table class="table table-striped">';
                 $out .= '<tr><th scope="col">#</th><th>ID</th><th>Category</th><th>Title</th><th>Descr_min</th><th>Description</th><th>Tags</th><th>Image</th><th>Update</th><th>Delete</th></tr>';

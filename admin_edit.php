@@ -1,12 +1,12 @@
 <?php
-require_once 'template/header.php';
+require_once 'template/header_admin.php';
 // создаем список для выбора тегов 
 $tag = getAllTags($mysql);
 // выбираем теги редактируемой статьи
 $postTags = getArticleTags($mysql);
 // получаем данные по нужной статье из info
 $data = selectArticle($mysql);
-close ($mysql);
+require_once 'core/access_check.php';
 
 // изменяем запись в базе данных
 if($_POST['check'] == 'Cancel'){
@@ -60,7 +60,6 @@ if($_POST['check'] == 'Cancel'){
         close ($mysql);
     }
 }    
-
 ?>
 
 <div class="container">
@@ -114,7 +113,6 @@ if($_POST['check'] == 'Cancel'){
                 <!-- Выбираем теги -->
                 <div class="form-group">
                     <label for="tag">Tag input:</label>
-                    <!-- <select name="tag[]" multiple class="form-control" id="tag" size="4"> -->
                         <?php
                         $out = '';
                         $countTag = count($tag);

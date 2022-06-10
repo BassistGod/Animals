@@ -196,6 +196,15 @@ function output($result){
     <?php
 }
 
+function generateHash ($length) {
+    $symbol = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
+    $code = "";
+    for ($i = 0; $i < $length; $i++) {
+        $code .= $symbol[rand(0, strlen($symbol)-1)];
+    }
+    return $code;
+} 
+
 function close($mysql){
     $mysql->close();
 }

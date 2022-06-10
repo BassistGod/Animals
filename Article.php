@@ -33,11 +33,13 @@ close ($mysql);
         </div>
 
         <div class="col-lg-12 text-center">
-            <?php   
+            <?php
             // вывод ссылок на теги
-            echo '<hr>';
-            for ($i=0; $i < count($tag); $i++){
-                echo "<span><a href='/New_lessons/14_animal/tag.php?tag={$tag[$i]['tag']}' class='badge badge-primary p-2 m-1'>{$tag[$i]['tag']}</a></span>";
+            if (isset($tag) AND $tag !='bad select'){  
+                echo '<hr>';
+                for ($i=0; $i < count($tag); $i++){
+                    echo "<span><a href='/New_lessons/14_animal/tag.php?tag={$tag[$i]['tag']}' class='badge badge-primary p-2 m-1'>{$tag[$i]['tag']}</a></span>";
+                }
             }
             ?>
         </div>
@@ -46,8 +48,7 @@ close ($mysql);
 </div>
 
 <?php
-require_once 'template/footer.php';
-// width='500'
+require_once 'template/footer_down.php';
 ?>
 
 

@@ -1,9 +1,8 @@
 <?php
-require_once 'template/header.php';
-
+require_once 'template/header_admin.php';
 // создаем список для выбора тегов 
 $tag = getAllTags($mysql);
-close ($mysql);
+require_once 'core/access_check.php';
 
 // добавляем записи в базу данных
 if (isset($_POST['title']) AND $_POST['title'] !=''){

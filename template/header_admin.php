@@ -18,12 +18,12 @@ $AmountCatInfo = getAmountCatInfo($mysql);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <link rel='stylesheet' href='css/style.css' />
     
-    <title>Hello, world!</title>
 </head>
 <body>
 <!-- <div class="wrap"> -->
 <div class="content">
 <div class="wrapper">
+
 
     <!-- Navtabs -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="background-color: #666666;">
@@ -36,6 +36,14 @@ $AmountCatInfo = getAmountCatInfo($mysql);
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="/New_lessons/14_animal/admin.php">Admin panel</a>
                     </li>
+                </ul>    
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">    
+                    <li class="nav-item mr-4">
+                        <a class="nav-link" href="/New_lessons/14_animal/login.php">Sign in</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/New_lessons/14_animal/logout.php">Logout</a>
+                    </li>                   
                 </ul>
             </div>
         </div>
